@@ -9,20 +9,16 @@ public class ShopRepositoryTest {
     public void testRemoveExistingProduct() {
         Product product = new Product(1, "Книга", 10);
         shopRepository.add(product);
-        Assertions.assertEquals(1, shopRepository.getProducts().length);
+        Assertions.assertArrayEquals(new Product [] {product}, shopRepository.getProducts());
 
         shopRepository.removeById(1);
-        Assertions.assertThrows(NotFoundException.class, () -> {
-            shopRepository.removeById(1);
-        });
+        Assertions.assertArrayEquals(new Product [] {}, shopRepository.getProducts());
     }
 
     @Test
-    public void testRemoveNonExistingProduct() {
-        try {
+    public void testRaiseException() {
+        Assertions.assertThrows(NotFoundException.class, () -> {
             shopRepository.removeById(1);
-        } catch (NotFoundException e) {
-            Assertions.assertEquals("Товар с ID 1 не найден.", e.getMessage());
-        }
+        });
     }
 }
