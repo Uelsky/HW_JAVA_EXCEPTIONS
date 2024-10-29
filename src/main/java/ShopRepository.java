@@ -1,6 +1,9 @@
 public class ShopRepository {
     private Product[] products = new Product[0];
 
+    public Product[] getProducts() {
+        return products;
+    }
     /**
      * Вспомогательный метод для имитации добавления элемента в массив
      * @param current — массив, в который мы хотим добавить элемент
